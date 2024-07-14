@@ -1,6 +1,6 @@
 [Protocol]
-exec=dash-qt '%u'
-protocol=dash
+exec=zip-qt '%u'
+protocol=zip
 input=none
 output=none
 helper=true

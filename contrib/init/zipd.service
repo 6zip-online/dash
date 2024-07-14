@@ -1,57 +1,57 @@
 # It is not recommended to modify this file in-place, because it will
 # be overwritten during package upgrades. If you want to add further
 # options or overwrite existing ones then use
-# $ systemctl edit dashd.service
+# $ systemctl edit zipd.service
 # See "man systemd.service" for details.
 
 # Note that almost all daemon options could be specified in
-# /etc/dash/dash.conf, but keep in mind those explicitly
+# /etc/zip/zip.conf, but keep in mind those explicitly
 # specified as arguments in ExecStart= will override those in the
 # config file.
 
 [Unit]
-Description=Dash daemon
-Documentation=https://github.com/dashpay/dash/blob/master/doc/init.md
+Description=6Zip daemon
+Documentation=https://github.com/6zip-online/zip/blob/master/doc/init.md
 
 # https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/dashd -daemon \
-                                                            -pid=/run/dashd/dashd.pid \
-                                                            -conf=/etc/dash/dash.conf  \
-                                                            -datadir=/var/lib/dashd
+ExecStart=/usr/bin/zipd -daemon \
+                                                            -pid=/run/zipd/zipd.pid \
+                                                            -conf=/etc/zip/zip.conf  \
+                                                            -datadir=/var/lib/zipd
 
 # Make sure the config directory is readable by the service user
 PermissionsStartOnly=true
-ExecStartPre=/bin/chgrp dashcore /etc/dash
+ExecStartPre=/bin/chgrp zipcore /etc/zip
 
 # Process management
 ####################
 
 Type=forking
-PIDFile=/run/dashd/dashd.pid
+PIDFile=/run/zipd/zipd.pid
 Restart=on-failure
 TimeoutStopSec=600
 
 # Directory creation and permissions
 ####################################
 
-# Run as dash:dash
-User=dashcore
-Group=dashcore
+# Run as zip:zip
+User=zipcore
+Group=zipcore
 
-# /run/dashd
-RuntimeDirectory=dashd
+# /run/zipd
+RuntimeDirectory=zipd
 RuntimeDirectoryMode=0710
 
-# /etc/dash
-ConfigurationDirectory=dash
+# /etc/zip
+ConfigurationDirectory=zip
 ConfigurationDirectoryMode=0710
 
-# /var/lib/dashd
-StateDirectory=dashd
+# /var/lib/zipd
+StateDirectory=zipd
 StateDirectoryMode=0710
 
 # Hardening measures

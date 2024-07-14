@@ -1,6 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2020 The Bitcoin Core developers
 // Copyright (c) 2014-2024 The Dash Core developers
+// Copyright (c)      2024 The 6Zip Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -208,6 +209,15 @@ UniValue blockheaderToJSON(const CBlockIndex* tip, const CBlockIndex* blockindex
         result.pushKV("nextblockhash", pnext->GetBlockHash().GetHex());
 
     result.pushKV("chainlock", clhandler.HasChainLock(blockindex->nHeight, blockindex->GetBlockHash()));
+
+    // Compute and add the uniqueID
+    CBlock block;
+    if (ReadBlockFromDisk(block, blockindex, Params().GetConsensus())) {
+        uint256 uniqueID = block.GetUniqueID(); // Assuming GetUniqueID() returns uint256
+        result.pushKV("uniqueid", uniqueID.GetHex());
+    } else {
+        result.pushKV("uniqueid", "unknown");
+    }
 
     return result;
 }
@@ -878,6 +888,7 @@ static UniValue getblockheader(const JSONRPCRequest& request)
                     {RPCResult::Type::STR_HEX, "previousblockhash", /* optional */ true, "The hash of the previous block (if available)"},
                     {RPCResult::Type::STR_HEX, "nextblockhash", /* optional */ true, "The hash of the next block (if available)"},
                     {RPCResult::Type::BOOL, "chainlock", "The state of the block ChainLock"},
+                    {RPCResult::Type::STR_HEX, "uniqueid", "The unique ID of the block"},
                 }},
             RPCResult{"for verbose=false",
                 RPCResult::Type::STR_HEX, "", "A string that is serialized, hex-encoded data for block 'hash'"},
@@ -918,6 +929,13 @@ static UniValue getblockheader(const JSONRPCRequest& request)
 
     LLMQContext& llmq_ctx = EnsureLLMQContext(node);
     return blockheaderToJSON(tip, pblockindex, *llmq_ctx.clhandler, *llmq_ctx.isman);
+
+    // Compute and add the uniqueID
+    CBlock block;
+    if (ReadBlockFromDisk(block, pblockindex, Params().GetConsensus())) {
+        uint256 uniqueID = block.GetUniqueID(); // Assuming GetUniqueID() returns uint256
+    }
+
 }
 
 static UniValue getblockheaders(const JSONRPCRequest& request)
@@ -1462,8 +1480,8 @@ static UniValue gettxout(const JSONRPCRequest& request)
                         {RPCResult::Type::STR_HEX, "hex", ""},
                         {RPCResult::Type::NUM, "reqSigs", "Number of required signatures"},
                         {RPCResult::Type::STR_HEX, "type", "The type, eg pubkeyhash"},
-                        {RPCResult::Type::ARR, "addresses", "Array of Dash addresses",
-                            {{RPCResult::Type::STR, "address", "Dash address"}}},
+                        {RPCResult::Type::ARR, "addresses", "Array of 6Zip addresses",
+                            {{RPCResult::Type::STR, "address", "6Zip address"}}},
                     }},
                 {RPCResult::Type::BOOL, "coinbase", "Coinbase or not"},
             }},

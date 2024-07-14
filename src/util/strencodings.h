@@ -20,6 +20,12 @@
 #include <vector>
 
 /** Used by SanitizeString() */
+#define BEGIN(a)            ((char*)&(a))
+#define END(a)              ((char*)&((&(a))[1]))
+#define UBEGIN(a)           ((unsigned char*)&(a))
+#define UEND(a)             ((unsigned char*)&((&(a))[1]))
+#define ARRAYLEN(array)     (sizeof(array)/sizeof((array)[0]))
+
 enum SafeChars
 {
     SAFE_CHARS_DEFAULT, //!< The full set of allowed chars

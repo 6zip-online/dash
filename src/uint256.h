@@ -99,7 +99,7 @@ public:
 };
 
 /** 256-bit opaque blob.
- * @note This type is called uint256 for historical reasons only. It is an
+ * @note This type is called uint256uint256 for historical reasons only. It is an
  * opaque blob of 256 bits and has no integer operations. Use arith_uint256 if
  * those are required.
  */

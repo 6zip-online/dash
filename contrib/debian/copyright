@@ -1,16 +1,19 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Dash Core
-Upstream-Contact: Dash Core Group, Inc https://www.dash.org/dcg/
-Source: https://github.com/dashpay/dash
+Upstream-Name: 6Zip Core
+Upstream-Contact: 6Zip Core Group, Inc https://6zip.online/
+Source: https://github.com/6zip-online/6zip
 
 Files: *
 Copyright: 2009-2024, Bitcoin Core Developers,
-           2019-2024, Dash Core Developers
+           2019-2024, Dash Core Developers,
+                2024, 6Zip Core Developers
+
 License: Expat
 Comment: The Bitcoin Core Developers encompasses the current developers listed on bitcoin.org,
          as well as the numerous contributors to the project. The Dash Core Developers
          encompasses the current developers listed on https://www.dash.org/team/, as well as
-         the numerous contributors to the project.
+         the numerous contributors to the project. The 6Zip Core Developers are listed on
+         https://6zip.online
 
 Files: debian/*
 Copyright: 2010-2011, Jonas Smedegaard <dr@jones.dk>

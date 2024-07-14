@@ -371,7 +371,7 @@ public:
         block.nTime           = nTime;
         block.nBits           = nBits;
         block.nNonce          = nNonce;
-        return block.GetHash();
+        return block.GetPOWHash();
     }
 
     std::string ToString() const;
