@@ -380,7 +380,7 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_dash_qt_OBJECTS) $(dash_gui_OBJECTS): | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_zip_qt_OBJECTS) $(zip_gui_OBJECTS): | $(QT_MOC)
 
 # zip-qt binary and zip-gui binaries #
 bitcoin_qt_cppflags = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
@@ -404,19 +404,19 @@ bitcoin_qt_ldadd += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(
 bitcoin_qt_ldflags = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) $(PTHREAD_FLAGS)
 bitcoin_qt_libtoolflags = $(AM_LIBTOOLFLAGS) --tag CXX
 
-qt_dash_qt_CPPFLAGS = $(bitcoin_qt_cppflags)
-qt_dash_qt_CXXFLAGS = $(bitcoin_qt_cxxflags)
-qt_dash_qt_SOURCES = $(bitcoin_qt_sources)
-qt_dash_qt_LDADD = $(bitcoin_qt_ldadd)
-qt_dash_qt_LDFLAGS = $(bitcoin_qt_ldflags)
-qt_dash_qt_LIBTOOLFLAGS = $(bitcoin_qt_libtoolflags)
+qt_zip_qt_CPPFLAGS = $(bitcoin_qt_cppflags)
+qt_zip_qt_CXXFLAGS = $(bitcoin_qt_cxxflags)
+qt_zip_qt_SOURCES = $(bitcoin_qt_sources)
+qt_zip_qt_LDADD = $(bitcoin_qt_ldadd)
+qt_zip_qt_LDFLAGS = $(bitcoin_qt_ldflags)
+qt_zip_qt_LIBTOOLFLAGS = $(bitcoin_qt_libtoolflags)
 
-dash_gui_CPPFLAGS = $(bitcoin_qt_cppflags)
-dash_gui_CXXFLAGS = $(bitcoin_qt_cxxflags)
-dash_gui_SOURCES = $(bitcoin_qt_sources)
-dash_gui_LDADD = $(bitcoin_qt_ldadd)
-dash_gui_LDFLAGS = $(bitcoin_qt_ldflags)
-dash_gui_LIBTOOLFLAGS = $(bitcoin_qt_libtoolflags)
+zip_gui_CPPFLAGS = $(bitcoin_qt_cppflags)
+zip_gui_CXXFLAGS = $(bitcoin_qt_cxxflags)
+zip_gui_SOURCES = $(bitcoin_qt_sources)
+zip_gui_LDADD = $(bitcoin_qt_ldadd)
+zip_gui_LDFLAGS = $(bitcoin_qt_ldflags)
+zip_gui_LIBTOOLFLAGS = $(bitcoin_qt_libtoolflags)
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
@@ -441,16 +441,16 @@ $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_FONTS) $(RES_ANIMATION)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name dash --format-version 1 $< > $@
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name zip --format-version 1 $< > $@
 
 CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_dash_locale.qrc qt/res/css/colors/*
 
 CLEANFILES += $(CLEAN_QT)
 
-dash_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_dash_qt_OBJECTS) qt/zip-qt$(EXEEXT) $(LIBBITCOINQT)
+zip_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_zip_qt_OBJECTS) qt/zip-qt$(EXEEXT) $(LIBBITCOINQT)
 
-dash_qt : qt/zip-qt$(EXEEXT)
+zip_qt : qt/zip-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

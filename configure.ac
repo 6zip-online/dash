@@ -1460,7 +1460,7 @@ if test x$use_boost = xyes; then
 dnl Check for Boost headers
 AX_BOOST_BASE([1.64.0],[],[AC_MSG_ERROR([Boost is not available!])])
 if test x$want_boost = xno; then
-    AC_MSG_ERROR([[only libdashconsensus can be built without boost]])
+    AC_MSG_ERROR([[only libzipconsensus can be built without boost]])
 fi
 AX_BOOST_FILESYSTEM
 
@@ -1644,7 +1644,7 @@ AC_MSG_CHECKING([whether to build libraries])
 AM_CONDITIONAL([BUILD_BITCOIN_LIBS], [test x$build_bitcoin_libs = xyes])
 if test x$build_bitcoin_libs = xyes; then
   AC_DEFINE(HAVE_CONSENSUS_LIB, 1, [Define this symbol if the consensus lib has been built])
-  AC_CONFIG_FILES([libdashconsensus.pc:libdashconsensus.pc.in])
+  AC_CONFIG_FILES([libzipconsensus.pc:libzipconsensus.pc.in])
 fi
 AC_MSG_RESULT($build_bitcoin_libs)
 

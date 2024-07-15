@@ -236,6 +236,7 @@ public:
         block.nTime          = nTime;
         block.nBits          = nBits;
         block.nNonce         = nNonce;
+        block.uniqueID       = GetUniqueID();
         return block;
     }
 

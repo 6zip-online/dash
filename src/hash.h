@@ -298,7 +298,7 @@ inline uint256 HashX11(const T1 pbegin, const T1 pend)
 
 /* ----------- Custom HashX7 ------------------------------------------------ */
 template<typename T1>
-inline uint256 HashX7(const T1 pbegin, const T1 pend, uint64_t nonce)
+inline uint256 HashX7(const T1 pbegin, const T1 pend, uint64_t timestamp)
 {
     sph_blake512_context     ctx_blake;
     sph_bmw512_context       ctx_bmw;
@@ -310,14 +310,14 @@ inline uint256 HashX7(const T1 pbegin, const T1 pend, uint64_t nonce)
     static unsigned char pblank[1];
 
     uint512 hash[7];
-    uint512 nonce_hash;
+    uint512 timestamp_hash;
 
     unsigned char temp1[64];
     unsigned char temp2[64];
 
-    // Incorporate the nonce into the initial data
+    // Incorporate the timestamp into the initial data
     sph_blake512_init(&ctx_blake);
-    sph_blake512(&ctx_blake, &nonce, sizeof(nonce));
+    sph_blake512(&ctx_blake, &timestamp, sizeof(timestamp));
     sph_blake512(&ctx_blake, (pbegin == pend ? pblank : static_cast<const void*>(&pbegin[0])), (pend - pbegin) * sizeof(pbegin[0]));
     sph_blake512_close(&ctx_blake, static_cast<void*>(&hash[0]));
 
@@ -371,5 +371,6 @@ inline uint256 HashX7(const T1 pbegin, const T1 pend, uint64_t nonce)
 
     return hash[6].trim256();
 }
+
 
 #endif // BITCOIN_HASH_H

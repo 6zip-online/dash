@@ -70,11 +70,12 @@ static CBlock CreateDevNetGenesisBlock(const uint256 &prevBlockHash, const std::
  * transaction cannot be spent since it did not originally exist in the
  * database.
  *
- * CBlock(hash=00000ffd590b14, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=e0028e, nTime=1390095618, nBits=1e0ffff0, nNonce=28917698, vtx=1)
- *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
- *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546865204772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
- *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
- *   vMerkleTree: e0028e
+ * CBlock(hash=00000b0896b55ada0b830f4ae96b81344119008714af713b0b693dc0ca92df6f, ver=0x00000001, hashPrevBlock=0000000000000000000000000000000000000000000000000000000000000000, hashMerkleRoot=c7a8aa497828e0ea78eff8536f18abcf04fa9ce238d2f24c27584e681afbd00d, nTime=1720834169,
+ * nBits=1e0ffff0, nNonce=819903, vtx=1, uniqueID=e931c264148d415450b79dc6382b4a46b4f2e9913a7f0444ad57e48ad640fb84)
+ * CTransaction(hash=c7a8aa4978, ver=1, type=0, vin.size=1, vout.size=1, nLockTime=0, vExtraPayload.size=0)
+ * CTxIn(COutPoint(0000000000000000000000000000000000000000000000000000000000000000, 4294967295), coinbase 04ffff001d01044c5761706e6577732e636f6d3a
+ * 204e6f76616b20446a6f6b6f76696320616e64204361726c6f7320416c636172617a206d65657420696e20612057696d626c65646f6e206d656ee28099732066696e616c2072656d61746368)
+ * CTxOut(nValue=50.00000000, scriptPubKey=41040184710fa689ad5023690c80f3)
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
@@ -279,12 +280,12 @@ public:
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 45;
         m_assumed_chain_state_size = 1;
-
-        genesis = CreateGenesisBlock(1720834169, 53783, 0x1e0ffff0, 1, 50 * COIN);
+       //  FindMainNetGenesisBlock(1720834169, 0x1e0ffff0, "main");
+        genesis = CreateGenesisBlock(1720834169, 819903, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetPOWHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000088fbf7a5f03c3b5a48d51895b044bf529c5e7899873ef7ea5f0cf7d5299"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000b0896b55ada0b830f4ae96b81344119008714af713b0b693dc0ca92df6f"));
         assert(genesis.hashMerkleRoot == uint256S("0xc7a8aa497828e0ea78eff8536f18abcf04fa9ce238d2f24c27584e681afbd00d"));
-        assert(genesis.uniqueID == uint256S("e931c264148d415450b79dc6382b4a46b4f2e9913a7f0444ad57e48ad640fb84"));
+        assert(genesis.uniqueID == uint256S("0xe931c264148d415450b79dc6382b4a46b4f2e9913a7f0444ad57e48ad640fb84"));
 
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.
@@ -442,11 +443,11 @@ public:
         m_assumed_blockchain_size = 4;
         m_assumed_chain_state_size = 1;
 
-        genesis = CreateGenesisBlock(1720834169, 53783, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1720834169, 819903, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetPOWHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000088fbf7a5f03c3b5a48d51895b044bf529c5e7899873ef7ea5f0cf7d5299"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000b0896b55ada0b830f4ae96b81344119008714af713b0b693dc0ca92df6f"));
         assert(genesis.hashMerkleRoot == uint256S("0xc7a8aa497828e0ea78eff8536f18abcf04fa9ce238d2f24c27584e681afbd00d"));
-        assert(genesis.uniqueID == uint256S("0xe931c264148d415450b79dc6382b4a46b4f2e9913a7f0444ad57e48ad640fb84"));
+        assert(genesis.uniqueID == uint256S("e931c264148d415450b79dc6382b4a46b4f2e9913a7f0444ad57e48ad640fb84"));
 
         vFixedSeeds.clear();
         vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
@@ -843,11 +844,11 @@ public:
         UpdateDIP3ParametersFromArgs(args);
         UpdateDIP8ParametersFromArgs(args);
         UpdateBudgetParametersFromArgs(args);
-        genesis = CreateGenesisBlock(1720834169, 53783, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1720834169, 819903, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetPOWHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000088fbf7a5f03c3b5a48d51895b044bf529c5e7899873ef7ea5f0cf7d5299"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000b0896b55ada0b830f4ae96b81344119008714af713b0b693dc0ca92df6f"));
         assert(genesis.hashMerkleRoot == uint256S("0xc7a8aa497828e0ea78eff8536f18abcf04fa9ce238d2f24c27584e681afbd00d"));
-        assert(genesis.uniqueID == uint256S("0xe931c264148d415450b79dc6382b4a46b4f2e9913a7f0444ad57e48ad640fb84"));
+        assert(genesis.uniqueID == uint256S("e931c264148d415450b79dc6382b4a46b4f2e9913a7f0444ad57e48ad640fb84"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
@@ -876,7 +877,7 @@ public:
         };
 
         m_assumeutxo_data = MapAssumeutxo{
-            {
+
         };
 
         chainTxData = ChainTxData{

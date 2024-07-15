@@ -74,7 +74,7 @@ namespace BCLog {
         EHF         = ((uint64_t)1 << 44),
         CREDITPOOL  = ((uint64_t)1 << 45),
 
-        DASH        = CHAINLOCKS | GOBJECT | INSTANTSEND | LLMQ | LLMQ_DKG
+        ZIP        = CHAINLOCKS | GOBJECT | INSTANTSEND | LLMQ | LLMQ_DKG
                     | LLMQ_SIGS | MNPAYMENTS | MNSYNC | COINJOIN | SPORK | NETCONN
                     | EHF | CREDITPOOL,
 
