@@ -154,41 +154,6 @@ std::optional<Consensus::LLMQParams> CChainParams::GetLLMQ(Consensus::LLMQType l
     return std::nullopt;
 }
 
-static void FindMainNetGenesisBlock(uint32_t nTime, uint32_t nBits, const char* network)
-{
-
-    CBlock block = CreateGenesisBlock(nTime, 0, nBits, 1, 50 * COIN);
-
-    arith_uint256 bnTarget;
-    bnTarget.SetCompact(block.nBits);
-
-    for (uint32_t nNonce = 0; nNonce < UINT32_MAX; nNonce++) {
-        block.nNonce = nNonce;
-
-        uint256 hash = block.GetPOWHash();
-        if (nNonce % 4 == 0) {
-        	printf("\nrnonce=%d, pow is %s\n", nNonce, hash.GetHex().c_str());
-        }
-        if (UintToArith256(hash) <= bnTarget) {
-        	printf("\n%s net\n", network);
-        	printf("\ngenesis is %s\n", block.ToString().c_str());
-			printf("\npow is %s\n", hash.GetHex().c_str());
-			printf("\ngenesisNonce is %d\n", nNonce);
-			std::cout << "Genesis Merkle " << block.hashMerkleRoot.GetHex() << std::endl;
-            // Print the unique ID
-            uint256 uniqueID = block.GetUniqueID(); // Assuming GetUniqueID() returns uint256
-            std::cout << "Genesis Unique ID: " << uniqueID.GetHex() << std::endl;
-        	return;
-        }
-
-    }
-
-    // This is very unlikely to happen as we start the devnet with a very low difficulty. In many cases even the first
-    // iteration of the above loop will give a result already
-    error("%sNetGenesisBlock: could not find %s genesis block",network, network);
-    assert(false);
-}
-
 /**
  * Main network on which people trade goods and services.
  */
@@ -260,10 +225,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_MN_RR].useEHF = true;
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x"); // 2029000
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000300030"); // 2
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x"); // 2029000
+        consensus.defaultAssumeValid = uint256S("0x00000d568d3528c53fc91a6bb35f04fac3813bd4bbf62536015257751c40fd88"); // 2
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -280,7 +245,6 @@ public:
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 45;
         m_assumed_chain_state_size = 1;
-       //  FindMainNetGenesisBlock(1720834169, 0x1e0ffff0, "main");
         genesis = CreateGenesisBlock(1720834169, 819903, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetPOWHash();
         assert(consensus.hashGenesisBlock == uint256S("0x00000b0896b55ada0b830f4ae96b81344119008714af713b0b693dc0ca92df6f"));
@@ -339,7 +303,8 @@ public:
 
         checkpointData = {
             {
-                {0, uint256S("0x")},
+                {0, uint256S("0x00000b0896b55ada0b830f4ae96b81344119008714af713b0b693dc0ca92df6f")},
+                {2, uint256S("0x00000d568d3528c53fc91a6bb35f04fac3813bd4bbf62536015257751c40fd88")},
             }
         };
 
@@ -347,12 +312,12 @@ public:
          // TODO to be specified in a future patch.
         };
 
-        // getchaintxstats 17280 0000000000000020d5e38b6aef5bc8e430029444d7977b46f710c7d281ef1281
+        // getchaintxstats 2
         chainTxData = ChainTxData{
-                0, // * UNIX timestamp of last known number of transactions (Block 1969000)
-                0,   // * total number of transactions between genesis and that timestamp
+                1721088934, // * UNIX timestamp of last known number of transactions (Block 1969000)
+                3,   // * total number of transactions between genesis and that timestamp
                             //   (the tx=... number in the ChainStateFlushed debug.log lines)
-                0,      // * estimated number of transactions per second after that timestamp
+                1,      // * estimated number of transactions per second after that timestamp
         };
     }
 };
